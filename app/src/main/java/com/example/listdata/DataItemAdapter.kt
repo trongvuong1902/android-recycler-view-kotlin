@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DataItemAdapter(private val dataItems: MutableList<DataItem>) :
+class DataItemAdapter( private val dataItems: MutableList<DataItem>) :
     RecyclerView.Adapter<DataItemAdapter.ViewHolder>() {
-
+var onItemClick: ((DataItem) -> Unit)? = null
     class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         val indexTextView: TextView = itemView.findViewById(R.id.indexTextView)
         val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
@@ -27,6 +27,9 @@ class DataItemAdapter(private val dataItems: MutableList<DataItem>) :
         holder.titleTextView.text = item.title
         holder.dateTextView.text = item.date
         holder.descriptionTextView.text = item.description
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(item)
+        }
     }
 
     override fun getItemCount(): Int {
