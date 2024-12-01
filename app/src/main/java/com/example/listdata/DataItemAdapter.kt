@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DataItemAdapter(private val dataItems: List<DataItem>) :
+class DataItemAdapter(private val dataItems: MutableList<DataItem>) :
     RecyclerView.Adapter<DataItemAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
@@ -31,5 +31,11 @@ class DataItemAdapter(private val dataItems: List<DataItem>) :
 
     override fun getItemCount(): Int {
         return dataItems.size
+    }
+
+    fun updateList(newItems: List<DataItem>) {
+        dataItems.clear()
+        dataItems.addAll(newItems)
+        notifyDataSetChanged()
     }
 }
